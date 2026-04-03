@@ -719,7 +719,12 @@ body{overscroll-behavior:none;-webkit-tap-highlight-color:transparent}
       var div = document.createElement('div'); div.className = 'result-item';
       var routeHtml = item.routeTarget ? '<div style="margin-top:6px"><span class="route-badge">Kliko objektin ose përdor popup për rrugë</span></div>' : '';
       div.innerHTML = '<strong>' + item.label + '</strong><span>' + item.category + '</span>' + routeHtml;
-      div.addEventListener('click', function(){ item.opener(); updateStatus('Objekti u gjet: ' + item.label); });
+      div.addEventListener('click', function(){
+        item.opener();
+        document.getElementById('sidebar').classList.add('hidden');
+        syncLayoutState();
+        updateStatus('Objekti u gjet: ' + item.label);
+      });
       wrap.appendChild(div);
     });
   }
