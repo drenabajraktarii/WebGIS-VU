@@ -73,6 +73,9 @@ body{overscroll-behavior:none;-webkit-tap-highlight-color:transparent}
 .action-btn.warn{background:#fff1f2;color:#be123c}
 .action-btn.green{background:#ecfdf5;color:#047857}
 .quick-card{position:absolute;right:16px;bottom:96px;z-index:1100;width:280px;max-width:calc(100% - 32px);background:var(--bg);border:1px solid var(--border);border-radius:20px;box-shadow:var(--shadow);padding:12px;backdrop-filter:blur(8px)}
+.quick-card-header{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:6px}
+.quick-card-header h3{margin:0;font-size:13px}
+.quick-toggle{display:none;border:none;background:#eef4ff;color:var(--blue);border-radius:10px;padding:8px 10px;font-size:12px;font-weight:700;cursor:pointer}
 .quick-card h3{margin:0 0 6px;font-size:13px}.quick-card p{margin:0 0 8px;color:var(--muted);font-size:11px;line-height:1.35}.quick-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:7px}.quick-card .action-btn{padding:9px 10px}
 .bottom-bar{position:absolute;right:16px;bottom:16px;z-index:1100;display:flex;gap:10px;align-items:flex-end;max-width:calc(100% - 32px)}
 .sidebar-open .quick-card,.sidebar-open .bottom-bar{right:16px;}
@@ -104,44 +107,38 @@ body{overscroll-behavior:none;-webkit-tap-highlight-color:transparent}
 }
 @media (max-width:680px){
   html,body,#map{font-size:15px}
-  .app-title{top:12px;left:12px;right:76px;transform:none;max-width:none;padding:10px 14px;border-radius:16px}
-  .app-title span{font-size:13px;line-height:1.25}
-  .right-toolbar{top:auto;bottom:max(12px, env(safe-area-inset-bottom));right:12px;gap:8px;padding:6px}
-  .tool-btn{width:42px;height:42px;border-radius:12px;font-size:16px}
-  .leaflet-control-zoom{top:auto;bottom:210px;right:12px}
-  .leaflet-control-zoom a{width:42px!important;height:42px!important;line-height:42px!important}
-  .sidebar{top:12px;left:12px;right:12px;bottom:auto;width:auto;max-width:none;max-height:min(74dvh, calc(100dvh - 24px));border-radius:22px}
-  .sidebar.hidden{transform:translateY(105%)}
-  .sidebar-head{padding:14px 14px 10px}
-  .sidebar-tabs{grid-template-columns:repeat(3,1fr);gap:6px;padding:10px 12px 0}
-  .sidebar-tabs button{padding:11px 6px;font-size:12px}
-  .sidebar-content{padding:12px 12px calc(34px + env(safe-area-inset-bottom));-webkit-overflow-scrolling:touch}
-  .card{padding:12px;margin-bottom:10px}
+  .app-title{top:10px;left:10px;right:72px;transform:none;max-width:none;padding:8px 12px;border-radius:15px}
+  .app-title span{font-size:12px;line-height:1.2}
+  .right-toolbar{top:78px;bottom:auto;right:8px;gap:7px;padding:4px}
+  .tool-btn{width:38px;height:38px;border-radius:12px;font-size:15px}
+  .leaflet-control-zoom{top:auto;bottom:120px;right:8px}
+  .leaflet-control-zoom a{width:38px!important;height:38px!important;line-height:38px!important}
+  .sidebar{top:10px;left:10px;right:58px;bottom:auto;width:auto;max-width:none;max-height:min(58dvh, calc(100dvh - 20px));border-radius:20px}
+  .sidebar.hidden{transform:translateY(-108%);opacity:0;pointer-events:none}
+  .sidebar-head{padding:12px 12px 8px}
+  .sidebar-head h2{font-size:14px}
+  .sidebar-head p{font-size:11px;line-height:1.3}
+  .sidebar-tabs{grid-template-columns:repeat(3,1fr);gap:6px;padding:8px 10px 0}
+  .sidebar-tabs button{padding:10px 6px;font-size:12px}
+  .sidebar-content{padding:10px 10px calc(24px + env(safe-area-inset-bottom));-webkit-overflow-scrolling:touch}
+  .card{padding:11px;margin-bottom:9px}
   .search-box,.base-select,.text-input,.text-area,.form-select{font-size:16px}
-  .quick-card{left:12px;right:66px;bottom:max(12px, env(safe-area-inset-bottom));width:auto;max-width:none;padding:10px 10px 12px;border-radius:18px}
-  .quick-card h3{font-size:13px;margin-bottom:4px}
-  .quick-card p{font-size:11px;margin-bottom:6px}
-  .quick-grid{grid-template-columns:1fr}
-  .quick-card .action-btn{padding:10px 10px;font-size:13px}
-  .bottom-bar{left:12px;right:66px;bottom:220px;align-items:stretch;flex-direction:column;gap:8px}
-  .scale-center{left:12px;right:66px;transform:none;bottom:154px;text-align:center;border-radius:14px}
-  .mini-card{padding:9px 10px;border-radius:14px}
-  .mini-card strong{font-size:12px}
-  .coord-stack span{white-space:normal;line-height:1.25}
-  .leaflet-popup-content{min-width:210px;margin:12px 14px}
-}
-@media (max-width:430px){
-  .app-title{right:72px;padding:9px 12px}
-  .app-title span{font-size:12px}
-  .sidebar{max-height:min(76dvh, calc(100dvh - 24px))}
-  .sidebar-head p{font-size:11px}
-  .sidebar-tabs{grid-template-columns:repeat(2,1fr)}
-  .quick-card{right:64px}
-  .bottom-bar{right:64px;bottom:228px}
-  .scale-center{right:64px;bottom:160px}
-}
-@media (hover:none) and (pointer:coarse){
-  .tool-btn:hover,.action-btn:hover,.mini-btn:hover,.download-btn:hover,.layer-button:hover{transform:none}
+  .scale-center{bottom:14px;padding:8px 12px;font-size:11px;max-width:calc(100vw - 120px)}
+  .quick-card{left:10px;right:58px;bottom:62px;width:auto;max-width:none;padding:10px 11px;border-radius:18px;max-height:42dvh;overflow:auto}
+  .quick-card-header h3{font-size:13px}
+  .quick-toggle{display:inline-flex;align-items:center;justify-content:center;min-width:54px;padding:7px 10px;border-radius:10px}
+  .quick-card.mobile-collapsed{left:auto;right:58px;bottom:62px;width:110px;padding:10px;border-radius:16px;overflow:visible}
+  .quick-card.mobile-collapsed .quick-card-header{margin-bottom:0;display:grid;gap:8px}
+  .quick-card.mobile-collapsed .quick-card-header h3{font-size:12px;line-height:1.15}
+  .quick-card.mobile-collapsed p,.quick-card.mobile-collapsed .quick-grid,.quick-card.mobile-collapsed .helper-note{display:none}
+  .bottom-bar{left:10px;right:58px;bottom:106px;flex-direction:row;align-items:stretch;gap:8px}
+  .bottom-bar .mini-card{flex:1;min-width:0}
+  .quick-card:not(.mobile-collapsed) ~ .bottom-bar{display:none}
+  .mini-card{padding:8px 10px;font-size:11px;border-radius:14px}
+  .mini-card strong{font-size:12px;margin-bottom:2px}
+  .coord-stack span{white-space:normal}
+  .sidebar-open .quick-card{left:auto;right:58px}
+  .sidebar-open .bottom-bar{left:10px;right:58px}
 }
 </style>
 </head>
@@ -275,8 +272,8 @@ body{overscroll-behavior:none;-webkit-tap-highlight-color:transparent}
 
   <div class="scale-center" id="scaleCenter">Shkalla aktuale: <span>1:—</span></div>
 
-  <div class="quick-card">
-    <h3>Veglat kryesore</h3>
+  <div class="quick-card mobile-collapsed" id="quickCard">
+    <div class="quick-card-header"><h3>Veglat kryesore</h3><button class="quick-toggle" id="quickToggleBtn">Hap</button></div>
     <p>Navigim i shpejtë, i vendosur veçmas nga paneli dhe koordinatat për pamje më të pastër.</p>
     <div class="quick-grid">
       <button class="action-btn" id="zoomAllBtn">Shtrirja fillestare</button>
@@ -547,6 +544,10 @@ body{overscroll-behavior:none;-webkit-tap-highlight-color:transparent}
   function toggleSidebar(){
     var sb = document.getElementById('sidebar');
     sb.classList.toggle('hidden');
+    if (isMobileView() && !sb.classList.contains('hidden')) {
+      document.getElementById('quickCard').classList.add('mobile-collapsed');
+      document.getElementById('quickToggleBtn').textContent = 'Hap';
+    }
     syncLayoutState();
   }
 
@@ -945,7 +946,39 @@ body{overscroll-behavior:none;-webkit-tap-highlight-color:transparent}
   if (window.innerWidth <= 680) {
     document.getElementById('sidebar').classList.add('hidden');
   }
-  syncLayoutState();
+
+  function isMobileView(){ return window.innerWidth <= 680; }
+  function syncMobileLayout(){
+    var quickCard = document.getElementById('quickCard');
+    var quickToggle = document.getElementById('quickToggleBtn');
+    if (!quickCard || !quickToggle) return;
+    if (isMobileView()) {
+      if (!quickCard.dataset.mobileInit) {
+        quickCard.classList.add('mobile-collapsed');
+        document.getElementById('sidebar').classList.add('hidden');
+        quickCard.dataset.mobileInit = '1';
+      }
+      quickToggle.style.display = 'inline-flex';
+      quickToggle.textContent = quickCard.classList.contains('mobile-collapsed') ? 'Hap' : 'Mbyll';
+    } else {
+      quickCard.classList.remove('mobile-collapsed');
+      quickToggle.style.display = 'none';
+      document.getElementById('sidebar').classList.remove('hidden');
+    }
+    syncLayoutState();
+  }
+  document.getElementById('quickToggleBtn').addEventListener('click', function(){
+    var quickCard = document.getElementById('quickCard');
+    quickCard.classList.toggle('mobile-collapsed');
+    this.textContent = quickCard.classList.contains('mobile-collapsed') ? 'Hap' : 'Mbyll';
+    if (isMobileView() && !quickCard.classList.contains('mobile-collapsed')) {
+      document.getElementById('sidebar').classList.add('hidden');
+    }
+    syncLayoutState();
+  });
+  window.addEventListener('resize', syncMobileLayout);
+
+  syncMobileLayout();
   buildLegend();
   buildLayerSummary();
   buildDownloadList();
