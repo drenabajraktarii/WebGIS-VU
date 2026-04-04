@@ -31,7 +31,7 @@
   --sidebar-w:370px;
   --header-h:78px;
 }
-.app-title{position:absolute;top:14px;left:50%;transform:translateX(-50%);z-index:1120;display:flex;align-items:center;gap:10px;padding:10px 18px;background:linear-gradient(180deg,rgba(255,255,255,.96),rgba(248,250,252,.93));border:1px solid var(--border);border-radius:999px;box-shadow:0 10px 24px rgba(15,23,42,.14);backdrop-filter:blur(10px);max-width:min(62vw,760px)}
+.app-title{position:absolute;top:14px;left:50%;transform:translateX(-50%);z-index:1120;display:flex;align-items:center;gap:10px;padding:10px 18px;background:linear-gradient(180deg,rgba(255,255,255,.96),rgba(248,250,252,.93));border:1px solid var(--border);border-radius:999px;box-shadow:0 10px 24px rgba(15,23,42,.14);backdrop-filter:blur(10px);max-width:min(70vw,860px)}
 .app-title:before{content:'📍';font-size:15px;line-height:1;opacity:.9}
 .app-title span{display:block;font-size:16px;font-weight:700;letter-spacing:.2px;color:#0f172a;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 
@@ -108,12 +108,12 @@ body{overscroll-behavior:none;-webkit-tap-highlight-color:transparent}
 }
 @media (max-width:680px){
   html,body,#map{font-size:15px}
-  .app-title{top:10px;left:50%;right:auto;transform:translateX(-50%);width:calc(100% - 106px);max-width:calc(100% - 106px);padding:10px 12px;border-radius:16px;justify-content:center;text-align:center}
-  .app-title:before{margin-right:4px}
-  .app-title span{font-size:12px;line-height:1.25;white-space:normal;overflow:visible;text-overflow:clip}
-  .right-toolbar{top:78px;bottom:auto;right:8px;gap:7px;padding:4px}
+  .app-title{top:10px;left:10px;right:64px;transform:none;width:auto;max-width:none;padding:10px 14px;border-radius:16px;justify-content:center;text-align:center}
+  .app-title:before{margin-right:6px;flex:0 0 auto}
+  .app-title span{font-size:13px;line-height:1.25;white-space:normal;overflow:visible;text-overflow:clip;width:100%}
+  .right-toolbar{top:86px;bottom:auto;right:8px;gap:7px;padding:4px}
   .tool-btn{width:38px;height:38px;border-radius:12px;font-size:15px}
-  .leaflet-control-zoom{top:auto;bottom:148px;right:8px}
+  .leaflet-control-zoom{top:auto;bottom:182px;right:8px}
   .leaflet-control-zoom a{width:38px!important;height:38px!important;line-height:38px!important}
   .sidebar{top:10px;left:10px;right:58px;bottom:auto;width:auto;max-width:none;max-height:min(58dvh, calc(100dvh - 20px));border-radius:20px}
   .sidebar.hidden{transform:translateY(-108%);opacity:0;pointer-events:none}
@@ -125,8 +125,8 @@ body{overscroll-behavior:none;-webkit-tap-highlight-color:transparent}
   .sidebar-content{padding:10px 10px calc(24px + env(safe-area-inset-bottom));-webkit-overflow-scrolling:touch}
   .card{padding:11px;margin-bottom:9px}
   .search-box,.base-select,.text-input,.text-area,.form-select{font-size:16px}
-  .scale-center{left:8px;right:74px;bottom:86px;transform:none;padding:8px 12px;font-size:11px;border-radius:14px;text-align:center}
-  .quick-card{left:8px;right:8px;bottom:144px;width:auto;max-width:none;padding:12px 12px 14px;border-radius:20px;max-height:min(44dvh, 360px);overflow:auto}
+  .scale-center{left:12px;right:74px;bottom:118px;transform:none;padding:8px 12px;font-size:11px;border-radius:14px;text-align:center}
+  .quick-card{left:12px;right:12px;bottom:166px;width:auto;max-width:none;padding:12px 12px 14px;border-radius:20px;max-height:min(42dvh, 340px);overflow:auto}
   .quick-card-header{margin-bottom:8px}
   .quick-card-header h3{font-size:13px}
   .quick-toggle{display:inline-flex;align-items:center;justify-content:center;position:fixed;right:8px;bottom:8px;width:56px;height:56px;padding:0;border-radius:18px;box-shadow:var(--shadow);border:1px solid var(--border);background:rgba(255,255,255,.96);backdrop-filter:blur(10px);z-index:1160}
@@ -135,15 +135,15 @@ body{overscroll-behavior:none;-webkit-tap-highlight-color:transparent}
   .quick-card.mobile-collapsed .quick-card-header h3{display:none}
   .quick-card.mobile-collapsed p,.quick-card.mobile-collapsed .quick-grid,.quick-card.mobile-collapsed .helper-note{display:none}
   .quick-card.mobile-collapsed .quick-toggle{pointer-events:auto}
-  .bottom-bar{left:8px;right:74px;bottom:calc(8px + env(safe-area-inset-bottom));flex-direction:column;align-items:stretch;gap:6px}
-  .author-badge{left:8px;bottom:calc(8px + env(safe-area-inset-bottom) + 118px);font-size:10px;padding:6px 10px;max-width:calc(100% - 90px)}
-  .bottom-bar .mini-card{display:flex;align-items:center;justify-content:space-between;gap:10px;min-width:0;padding:8px 10px;border-radius:14px}
+  .bottom-bar{left:12px;right:74px;bottom:calc(12px + env(safe-area-inset-bottom));flex-direction:column;align-items:stretch;gap:6px}
+  .author-badge{left:12px;right:74px;bottom:calc(86px + env(safe-area-inset-bottom));font-size:10px;padding:6px 10px;max-width:none;text-align:center}
+  .bottom-bar .mini-card{display:grid;grid-template-columns:auto 1fr;align-items:center;gap:8px;min-width:0;padding:8px 12px;border-radius:14px}
   .bottom-bar .mini-card strong{font-size:11px;margin:0;white-space:nowrap}
-  .bottom-bar .mini-card span,.bottom-bar .coord-stack{font-size:11px;text-align:right;min-width:0;flex:1}
+  .bottom-bar .mini-card span,.bottom-bar .coord-stack{font-size:10px;text-align:left;min-width:0;flex:1;line-height:1.2}
   .bottom-bar .coord-stack{display:block}
-  .bottom-bar .coord-stack span{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-  .sidebar-open .bottom-bar{left:8px;right:74px}
-  .sidebar-open .quick-card{left:8px;right:8px}
+  .bottom-bar .coord-stack span{display:block;white-space:normal;overflow:visible;text-overflow:clip;word-break:break-word}
+  .sidebar-open .bottom-bar{left:12px;right:74px}
+  .sidebar-open .quick-card{left:12px;right:12px}
 }
 </style>
 </head>
@@ -151,7 +151,7 @@ body{overscroll-behavior:none;-webkit-tap-highlight-color:transparent}
 <div class="map-shell sidebar-open" id="appShell">
   <div id="map"></div>
   <div class="app-title"><span>Objektet me interes publik në Komunën e Vushtrrisë</span></div>
-  <div class="author-badge">Powered by Drenushë Bajraktari</div>
+  <div class="author-badge">Created by Drenushë Bajraktari</div>
     <div class="right-toolbar">
     <button class="tool-btn active" id="btnSidebar" title="Shfaq/Fsheh panelin">☰</button>
     <button class="tool-btn" id="btnLegend" title="Legjenda">⌘</button>
@@ -665,6 +665,8 @@ body{overscroll-behavior:none;-webkit-tap-highlight-color:transparent}
     }
   }
   applyInitialView();
+  var initialCenter = map.getCenter();
+  updateCoordDisplay(initialCenter.lat, initialCenter.lng);
   updateScaleReadout();
 
   function updateExtentStats(){
