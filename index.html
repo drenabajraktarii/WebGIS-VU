@@ -96,6 +96,7 @@ body{overscroll-behavior:none;-webkit-tap-highlight-color:transparent}
 .scale-center span{color:var(--blue)}
 .author-badge{position:absolute;left:16px;bottom:16px;z-index:1104;background:rgba(255,255,255,.88);border:1px solid var(--border);box-shadow:0 8px 18px rgba(15,23,42,.10);border-radius:999px;padding:7px 12px;font-size:11px;font-weight:600;color:#475569;backdrop-filter:blur(8px)}
 .mobile-info-bar{display:none}
+.mobile-search-bar{display:none}
 @media (max-width:1200px){
   .sidebar{width:340px}
 }
@@ -109,18 +110,19 @@ body{overscroll-behavior:none;-webkit-tap-highlight-color:transparent}
 }
 @media (max-width:680px){
   html,body,#map{font-size:15px}
-  .app-title{
-    top:10px; left:12px; right:12px; transform:none; width:auto; max-width:none;
-    padding:12px 46px 12px 44px; border-radius:18px; justify-content:center; text-align:center;
+  .app-title{display:none}
+  .mobile-search-bar{
+    position:absolute; top:10px; left:12px; right:12px; z-index:1160; display:flex; align-items:center; gap:10px;
+    height:54px; padding:0 16px; border-radius:22px; border:1px solid var(--border);
+    background:rgba(255,255,255,.97); box-shadow:0 10px 24px rgba(15,23,42,.14); backdrop-filter:blur(10px);
+    color:#475569; font:inherit; text-align:left;
   }
-  .app-title:before{position:absolute; left:14px; top:50%; transform:translateY(-50%); margin:0}
-  .app-title span{
-    font-size:13px; line-height:1.25; white-space:normal; overflow:visible; text-overflow:clip; width:100%;
-  }
+  .mobile-search-icon{font-size:18px; line-height:1}
+  .mobile-search-text{font-size:16px; font-weight:600}
 
   .sidebar{
-    top:10px; left:12px; right:12px; bottom:auto; width:auto; max-width:none;
-    max-height:min(58dvh, calc(100dvh - 20px)); border-radius:20px;
+    top:146px; left:12px; right:12px; bottom:auto; width:auto; max-width:none;
+    max-height:min(48dvh, calc(100dvh - 320px)); border-radius:20px;
   }
   .sidebar.hidden{transform:translateY(-108%); opacity:0; pointer-events:none}
   .sidebar-head{padding:12px 12px 8px}
@@ -133,7 +135,7 @@ body{overscroll-behavior:none;-webkit-tap-highlight-color:transparent}
   .search-box,.base-select,.text-input,.text-area,.form-select{font-size:16px}
 
   .right-toolbar{
-    top:96px; left:12px; right:12px; width:auto; bottom:auto; padding:0; gap:10px;
+    top:74px; left:12px; right:12px; width:auto; bottom:auto; padding:0; gap:10px;
     flex-direction:row; justify-content:space-between; background:transparent; border:none; box-shadow:none; backdrop-filter:none;
   }
   .tool-btn{
@@ -141,8 +143,11 @@ body{overscroll-behavior:none;-webkit-tap-highlight-color:transparent}
     font-size:18px; box-shadow:0 10px 24px rgba(15,23,42,.14); background:rgba(255,255,255,.96);
   }
 
+  .leaflet-control-container .leaflet-top.leaflet-left{
+    top:auto; left:auto; right:4px; bottom:calc(198px + env(safe-area-inset-bottom)); z-index:1140;
+  }
   .leaflet-control-zoom{
-    top:auto; bottom:calc(196px + env(safe-area-inset-bottom)); right:4px; left:auto; z-index:1110;
+    top:auto; bottom:0; right:0; left:auto; z-index:1140; display:block!important;
   }
   .leaflet-control-zoom a{
     width:38px!important; height:38px!important; line-height:38px!important; margin-bottom:6px;
@@ -189,6 +194,7 @@ body{overscroll-behavior:none;-webkit-tap-highlight-color:transparent}
 <div class="map-shell sidebar-open" id="appShell">
   <div id="map"></div>
   <div class="app-title"><span>Objektet me interes publik në Komunën e Vushtrrisë</span></div>
+  <button class="mobile-search-bar" id="mobileSearchBar" type="button" aria-label="Kërko në hartë"><span class="mobile-search-icon">🔍</span><span class="mobile-search-text">Kërko këtu</span></button>
   <div class="author-badge">Created by Drenushë Bajraktari</div>
     <div class="right-toolbar">
     <button class="tool-btn active" id="btnSidebar" title="Shfaq/Fsheh panelin">☰</button>
