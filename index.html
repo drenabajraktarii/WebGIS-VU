@@ -95,6 +95,7 @@ body{overscroll-behavior:none;-webkit-tap-highlight-color:transparent}
 .scale-center{position:absolute;left:50%;bottom:16px;transform:translateX(-50%);z-index:1105;background:rgba(255,255,255,.96);border:1px solid var(--border);box-shadow:var(--shadow);border-radius:999px;padding:9px 16px;font-size:12px;font-weight:700;color:#0f172a;backdrop-filter:blur(8px);white-space:nowrap}
 .scale-center span{color:var(--blue)}
 .author-badge{position:absolute;left:16px;bottom:16px;z-index:1104;background:rgba(255,255,255,.88);border:1px solid var(--border);box-shadow:0 8px 18px rgba(15,23,42,.10);border-radius:999px;padding:7px 12px;font-size:11px;font-weight:600;color:#475569;backdrop-filter:blur(8px)}
+.mobile-info-bar{display:none}
 @media (max-width:1200px){
   .sidebar{width:340px}
 }
@@ -108,27 +109,18 @@ body{overscroll-behavior:none;-webkit-tap-highlight-color:transparent}
 }
 @media (max-width:680px){
   html,body,#map{font-size:15px}
-
   .app-title{
     top:10px; left:12px; right:12px; transform:none; width:auto; max-width:none;
     padding:12px 46px 12px 44px; border-radius:18px; justify-content:center; text-align:center;
   }
   .app-title:before{position:absolute; left:14px; top:50%; transform:translateY(-50%); margin:0}
-  .app-title span{font-size:13px; line-height:1.25; white-space:normal; overflow:visible; text-overflow:clip; width:100%}
-
-  .right-toolbar{
-    top:96px; left:12px; right:12px; bottom:auto;
-    display:grid; grid-template-columns:repeat(6,minmax(0,1fr)); gap:8px;
-    padding:0; background:transparent; border:none; box-shadow:none; backdrop-filter:none;
+  .app-title span{
+    font-size:13px; line-height:1.25; white-space:normal; overflow:visible; text-overflow:clip; width:100%;
   }
-  .tool-btn{width:100%; height:44px; border-radius:14px; font-size:16px}
-
-  .leaflet-control-zoom{top:auto; bottom:calc(172px + env(safe-area-inset-bottom)); right:2px; left:auto}
-  .leaflet-control-zoom a{width:40px!important; height:40px!important; line-height:40px!important; margin-bottom:8px}
 
   .sidebar{
-    top:154px; left:12px; right:12px; bottom:auto; width:auto; max-width:none;
-    max-height:min(52dvh, calc(100dvh - 250px)); border-radius:20px;
+    top:10px; left:12px; right:12px; bottom:auto; width:auto; max-width:none;
+    max-height:min(58dvh, calc(100dvh - 20px)); border-radius:20px;
   }
   .sidebar.hidden{transform:translateY(-108%); opacity:0; pointer-events:none}
   .sidebar-head{padding:12px 12px 8px}
@@ -140,58 +132,56 @@ body{overscroll-behavior:none;-webkit-tap-highlight-color:transparent}
   .card{padding:11px; margin-bottom:9px}
   .search-box,.base-select,.text-input,.text-area,.form-select{font-size:16px}
 
-  .quick-card{
-    left:12px; right:12px; width:auto; max-width:none;
-    bottom:calc(108px + env(safe-area-inset-bottom));
-    padding:0; border:none; box-shadow:none; background:transparent; backdrop-filter:none;
+  .right-toolbar{
+    top:96px; left:12px; right:12px; width:auto; bottom:auto; padding:0; gap:10px;
+    flex-direction:row; justify-content:space-between; background:transparent; border:none; box-shadow:none; backdrop-filter:none;
   }
-  .quick-card p,.quick-card .helper-note,.quick-card-header h3,.quick-toggle{display:none!important}
-  .quick-card-header{display:none!important}
-  .quick-grid{
-    display:grid; grid-template-columns:repeat(6,minmax(0,1fr)); gap:8px;
+  .tool-btn{
+    width:calc((100vw - 24px - 50px)/6); min-width:46px; max-width:56px; height:46px; border-radius:16px;
+    font-size:18px; box-shadow:0 10px 24px rgba(15,23,42,.14); background:rgba(255,255,255,.96);
   }
+
+  .leaflet-control-zoom{
+    top:auto; bottom:calc(196px + env(safe-area-inset-bottom)); right:4px; left:auto; z-index:1110;
+  }
+  .leaflet-control-zoom a{
+    width:38px!important; height:38px!important; line-height:38px!important; margin-bottom:6px;
+    border-radius:12px!important;
+  }
+
+  .quick-card,
+  .quick-card.mobile-collapsed{
+    left:12px; right:12px; width:auto; max-width:none; bottom:calc(82px + env(safe-area-inset-bottom));
+    padding:0; background:transparent; border:none; box-shadow:none; backdrop-filter:none; overflow:visible; pointer-events:auto;
+  }
+  .quick-card-header,.quick-card p,.quick-card .helper-note,.quick-toggle{display:none!important}
+  .quick-grid{display:grid; grid-template-columns:repeat(6, 1fr); gap:10px}
   .quick-card .action-btn{
-    min-width:0; height:44px; padding:0; border-radius:14px; font-size:0;
-    display:grid; place-items:center; background:var(--bg-solid); border:1px solid var(--border);
-    box-shadow:var(--shadow); color:var(--text);
+    padding:0; width:100%; height:46px; border-radius:16px; display:grid; place-items:center;
+    font-size:20px; background:rgba(255,255,255,.96); color:var(--blue); box-shadow:0 10px 24px rgba(15,23,42,.14);
   }
-  .quick-card .action-btn::before{font-size:16px; line-height:1}
-  #zoomAllBtn::before{content:'⤢'}
-  #toggleSidebarBtn::before{content:'☰'}
-  #locateBtn::before{content:'◎'}
-  #statsBtn::before{content:'◔'}
-  #pickRouteBtn::before{content:'➜'}
-  #clearRouteBtn::before{content:'✕'}
-  .quick-card .action-btn.warn{background:var(--bg-solid); color:#be123c}
+  .quick-card .action-btn.warn{background:rgba(255,255,255,.96); color:#be123c}
 
-  .scale-center{
-    left:12px; right:12px; bottom:calc(48px + env(safe-area-inset-bottom));
-    transform:none; padding:0; font-size:11px; border-radius:16px; text-align:left;
-    display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1.45fr); overflow:hidden;
+  .scale-center,.bottom-bar{display:none!important}
+  .mobile-info-bar{
+    position:absolute; left:12px; right:12px; bottom:calc(16px + env(safe-area-inset-bottom)); z-index:1110;
+    display:grid; grid-template-columns:1fr 1fr; gap:0; background:rgba(255,255,255,.96);
+    border:1px solid var(--border); border-radius:18px; box-shadow:var(--shadow); overflow:hidden; backdrop-filter:blur(8px);
   }
-  .scale-center::before,
-  .scale-center::after{
-    padding:10px 12px; display:flex; align-items:center; min-height:44px; box-sizing:border-box;
-  }
-  .scale-center::before{
-    content:'Shkalla aktuale\A' attr(data-scale);
-    white-space:pre; font-weight:700; color:#0f172a; border-right:1px solid var(--border);
-  }
-  .scale-center::after{
-    content:'Koordinatat KosovaRef\A' attr(data-coords);
-    white-space:pre; font-weight:700; color:#0f172a;
-  }
-  .scale-center span{display:none}
-
-  .bottom-bar{
-    display:none;
-  }
+  .mobile-info-segment{padding:10px 12px; min-width:0}
+  .mobile-info-segment + .mobile-info-segment{border-left:1px solid var(--border)}
+  .mobile-info-label{display:block; font-size:10px; font-weight:700; color:#64748b; margin-bottom:4px}
+  .mobile-info-value{display:block; font-size:11px; font-weight:700; color:#0f172a; line-height:1.25; word-break:break-word}
 
   .author-badge{
-    left:12px; right:12px; bottom:calc(8px + env(safe-area-inset-bottom));
+    left:12px; right:12px; bottom:calc(0px + env(safe-area-inset-bottom));
     font-size:9px; padding:0; max-width:none; text-align:center;
     background:transparent; border:none; box-shadow:none; color:#64748b;
+    transform:translateY(14px);
   }
+
+  .sidebar-open .bottom-bar{left:auto; right:auto}
+}
 }
 </style>
 </head>
@@ -330,12 +320,12 @@ body{overscroll-behavior:none;-webkit-tap-highlight-color:transparent}
     <div class="quick-card-header"><h3>Veglat kryesore</h3><button class="quick-toggle" id="quickToggleBtn">Hap</button></div>
     <p>Navigim i shpejtë, i vendosur veçmas nga paneli dhe koordinatat për pamje më të pastër.</p>
     <div class="quick-grid">
-      <button class="action-btn" id="zoomAllBtn">Shtrirja fillestare</button>
-      <button class="action-btn" id="toggleSidebarBtn">Fsheh/Shfaq panelin</button>
-      <button class="action-btn" id="locateBtn">Pozicioni im</button>
-      <button class="action-btn" id="statsBtn">Përditëso statistikat</button>
-      <button class="action-btn" id="pickRouteBtn">Zgjidh destinacionin</button>
-      <button class="action-btn warn" id="clearRouteBtn">Fshi rrugën</button>
+      <button class="action-btn tool-icon-btn" id="zoomAllBtn" title="Shtrirja fillestare" aria-label="Shtrirja fillestare">⌂</button>
+      <button class="action-btn tool-icon-btn" id="toggleSidebarBtn" title="Paneli" aria-label="Paneli">☰</button>
+      <button class="action-btn tool-icon-btn" id="locateBtn" title="Pozicioni im" aria-label="Pozicioni im">◎</button>
+      <button class="action-btn tool-icon-btn" id="statsBtn" title="Statistikat" aria-label="Statistikat">◔</button>
+      <button class="action-btn tool-icon-btn" id="pickRouteBtn" title="Zgjidh destinacionin" aria-label="Zgjidh destinacionin">➜</button>
+      <button class="action-btn warn tool-icon-btn" id="clearRouteBtn" title="Fshi rrugën" aria-label="Fshi rrugën">✕</button>
     </div>
     <div class="helper-note" id="routeInfo">Zgjidh një destinacion në hartë ose përdor butonin “Rruga deri këtu” në popup.</div>
   </div>
@@ -350,6 +340,17 @@ body{overscroll-behavior:none;-webkit-tap-highlight-color:transparent}
       <div class="coord-stack">
         <span id="coordKosRef">Lëviz kursorin në hartë</span>
       </div>
+    </div>
+  </div>
+
+  <div class="mobile-info-bar" id="mobileInfoBar" aria-hidden="true">
+    <div class="mobile-info-segment">
+      <span class="mobile-info-label">Shkalla aktuale</span>
+      <span class="mobile-info-value" id="mobileScaleValue">1:—</span>
+    </div>
+    <div class="mobile-info-segment">
+      <span class="mobile-info-label">Koordinatat KosovaRef</span>
+      <span class="mobile-info-value" id="mobileCoordValue">X: — | Y: —</span>
     </div>
   </div>
 </div>
@@ -429,8 +430,8 @@ body{overscroll-behavior:none;-webkit-tap-highlight-color:transparent}
     var kr = kosovaRefFromLatLng(lat, lng);
     var coordText = 'X: ' + kr.x.toFixed(2) + ' | Y: ' + kr.y.toFixed(2);
     document.getElementById('coordKosRef').textContent = coordText;
-    var scaleEl = document.getElementById('scaleCenter');
-    if (scaleEl) scaleEl.setAttribute('data-coords', coordText);
+    var mobileCoord = document.getElementById('mobileCoordValue');
+    if (mobileCoord) mobileCoord.textContent = coordText;
   }
 
   function buildPopupContent(feature, fields, latlng){
@@ -702,11 +703,11 @@ body{overscroll-behavior:none;-webkit-tap-highlight-color:transparent}
   }
   function updateScaleReadout(){
     var el = document.getElementById('scaleCenter');
-    if (!el) return;
     var scale = getRoundedScaleValue(getCurrentScaleDenominator());
     var scaleText = '1:' + formatScaleNumber(scale);
-    el.innerHTML = 'Shkalla aktuale: <span>' + scaleText + '</span>';
-    el.setAttribute('data-scale', scaleText);
+    if (el) el.innerHTML = 'Shkalla aktuale: <span>' + scaleText + '</span>';
+    var mobileScale = document.getElementById('mobileScaleValue');
+    if (mobileScale) mobileScale.textContent = scaleText;
   }
   function updateMarkerVisibilityMessage(){
     if (map.getZoom() < markerMinZoom) updateStatus('Zmadho hartën për të shfaqur simbolet e objekteve');
@@ -1020,14 +1021,17 @@ body{overscroll-behavior:none;-webkit-tap-highlight-color:transparent}
     var quickCard = document.getElementById('quickCard');
     if (!quickCard) return;
     if (isMobileView()) {
-      quickCard.classList.remove('mobile-collapsed');
       document.getElementById('sidebar').classList.add('hidden');
+      quickCard.classList.add('mobile-collapsed');
     } else {
       quickCard.classList.remove('mobile-collapsed');
       document.getElementById('sidebar').classList.remove('hidden');
     }
     syncLayoutState();
   }
+  document.getElementById('quickToggleBtn').addEventListener('click', function(e){
+    e.preventDefault();
+  });
   window.addEventListener('resize', syncMobileLayout);
 
   syncMobileLayout();
