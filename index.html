@@ -95,10 +95,6 @@ body{overscroll-behavior:none;-webkit-tap-highlight-color:transparent}
 .scale-center{position:absolute;left:50%;bottom:16px;transform:translateX(-50%);z-index:1105;background:rgba(255,255,255,.96);border:1px solid var(--border);box-shadow:var(--shadow);border-radius:999px;padding:9px 16px;font-size:12px;font-weight:700;color:#0f172a;backdrop-filter:blur(8px);white-space:nowrap}
 .scale-center span{color:var(--blue)}
 .author-badge{position:absolute;left:16px;bottom:16px;z-index:1104;background:rgba(255,255,255,.88);border:1px solid var(--border);box-shadow:0 8px 18px rgba(15,23,42,.10);border-radius:999px;padding:7px 12px;font-size:11px;font-weight:600;color:#475569;backdrop-filter:blur(8px)}
-
-.mobile-top-ui,.mobile-searchbar,.mobile-chips,.mobile-chip,.mobile-sheet-handle{display:none}
-.fab-stack{display:none}
-
 @media (max-width:1200px){
   .sidebar{width:340px}
 }
@@ -112,116 +108,97 @@ body{overscroll-behavior:none;-webkit-tap-highlight-color:transparent}
 }
 @media (max-width:680px){
   html,body,#map{font-size:15px}
-  .app-title{display:none}
 
-  .mobile-top-ui{
-    display:block; position:absolute; top:10px; left:12px; right:12px; z-index:1165;
-    pointer-events:none;
+  .app-title{
+    top:10px; left:12px; right:12px; transform:none; width:auto; max-width:none;
+    padding:12px 46px 12px 44px; border-radius:18px; justify-content:center; text-align:center;
   }
-  .mobile-searchbar,.mobile-chips{pointer-events:auto}
-  .mobile-searchbar{
-    width:100%; display:flex; align-items:center; gap:12px;
-    background:rgba(255,255,255,.97); border:1px solid var(--border); border-radius:18px;
-    box-shadow:0 10px 28px rgba(15,23,42,.16); backdrop-filter:blur(10px);
-    padding:14px 16px; color:#334155; text-align:left;
-  }
-  .mobile-searchbar .ms-left,.mobile-searchbar .ms-right{font-size:18px; line-height:1}
-  .mobile-searchbar .ms-text{flex:1; font-size:14px; font-weight:600; white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
-  .mobile-chips{
-    display:flex; gap:8px; overflow-x:auto; padding-top:10px; scrollbar-width:none;
-  }
-  .mobile-chips::-webkit-scrollbar{display:none}
-  .mobile-chip{
-    display:inline-flex; align-items:center; justify-content:center; white-space:nowrap;
-    background:rgba(255,255,255,.96); border:1px solid var(--border); border-radius:999px;
-    box-shadow:0 8px 22px rgba(15,23,42,.12); padding:10px 14px; font-size:13px; font-weight:700; color:#0f172a;
-  }
+  .app-title:before{position:absolute; left:14px; top:50%; transform:translateY(-50%); margin:0}
+  .app-title span{font-size:13px; line-height:1.25; white-space:normal; overflow:visible; text-overflow:clip; width:100%}
 
   .right-toolbar{
-    top:126px; right:12px; gap:8px; padding:6px; border-radius:18px;
-    background:rgba(255,255,255,.78);
+    top:96px; left:12px; right:12px; bottom:auto;
+    display:grid; grid-template-columns:repeat(6,minmax(0,1fr)); gap:8px;
+    padding:0; background:transparent; border:none; box-shadow:none; backdrop-filter:none;
   }
-  .tool-btn{width:44px; height:44px; border-radius:14px; font-size:16px}
-  .leaflet-control-zoom{top:auto; bottom:calc(214px + env(safe-area-inset-bottom)); right:12px}
-  .leaflet-control-zoom a{width:42px!important; height:42px!important; line-height:42px!important; border-radius:14px!important}
+  .tool-btn{width:100%; height:44px; border-radius:14px; font-size:16px}
+
+  .leaflet-control-zoom{top:auto; bottom:calc(172px + env(safe-area-inset-bottom)); right:2px; left:auto}
+  .leaflet-control-zoom a{width:40px!important; height:40px!important; line-height:40px!important; margin-bottom:8px}
 
   .sidebar{
-    left:10px; right:10px; top:auto; bottom:calc(118px + env(safe-area-inset-bottom)); width:auto; max-width:none;
-    max-height:min(58dvh, 470px); border-radius:24px; transform:translateY(0); overflow:hidden;
+    top:154px; left:12px; right:12px; bottom:auto; width:auto; max-width:none;
+    max-height:min(52dvh, calc(100dvh - 250px)); border-radius:20px;
   }
-  .sidebar.hidden{transform:translateY(calc(100% + 24px)); opacity:1; pointer-events:none}
-  .mobile-sheet-handle{
-    display:flex; align-items:center; justify-content:center; width:100%; height:22px; background:transparent; border:none; cursor:pointer;
-  }
-  .mobile-sheet-handle span{display:block; width:52px; height:5px; border-radius:999px; background:#cbd5e1; margin-top:8px}
-  .sidebar-head{padding:10px 12px 8px}
+  .sidebar.hidden{transform:translateY(-108%); opacity:0; pointer-events:none}
+  .sidebar-head{padding:12px 12px 8px}
   .sidebar-head h2{font-size:14px}
-  .sidebar-head p{font-size:11px; line-height:1.35}
-  .sidebar-tabs{grid-template-columns:repeat(5, minmax(0,1fr)); gap:6px; padding:8px 10px 0}
-  .sidebar-tabs button{padding:9px 4px; font-size:11px; border-radius:12px}
-  .sidebar-content{padding:10px 10px calc(18px + env(safe-area-inset-bottom)); -webkit-overflow-scrolling:touch}
+  .sidebar-head p{font-size:11px; line-height:1.3}
+  .sidebar-tabs{grid-template-columns:repeat(3,1fr); gap:6px; padding:8px 10px 0}
+  .sidebar-tabs button{padding:10px 6px; font-size:12px}
+  .sidebar-content{padding:10px 10px calc(24px + env(safe-area-inset-bottom)); -webkit-overflow-scrolling:touch}
   .card{padding:11px; margin-bottom:9px}
   .search-box,.base-select,.text-input,.text-area,.form-select{font-size:16px}
 
-  .scale-center{
-    left:12px; right:112px; bottom:calc(118px + env(safe-area-inset-bottom)); transform:none;
-    padding:10px 12px; font-size:11px; border-radius:16px; text-align:center;
-  }
-
   .quick-card{
-    left:12px; right:12px; width:auto; max-width:none; bottom:calc(182px + env(safe-area-inset-bottom));
-    padding:12px; border-radius:22px; background:rgba(255,255,255,.96);
+    left:12px; right:12px; width:auto; max-width:none;
+    bottom:calc(108px + env(safe-area-inset-bottom));
+    padding:0; border:none; box-shadow:none; background:transparent; backdrop-filter:none;
   }
-  .quick-card.mobile-collapsed{
-    left:auto; right:12px; bottom:calc(182px + env(safe-area-inset-bottom)); width:54px; background:transparent; box-shadow:none; border:none; padding:0; pointer-events:none;
+  .quick-card p,.quick-card .helper-note,.quick-card-header h3,.quick-toggle{display:none!important}
+  .quick-card-header{display:none!important}
+  .quick-grid{
+    display:grid; grid-template-columns:repeat(6,minmax(0,1fr)); gap:8px;
   }
-  .quick-card.mobile-collapsed .quick-card-header h3,.quick-card.mobile-collapsed p,.quick-card.mobile-collapsed .quick-grid,.quick-card.mobile-collapsed .helper-note{display:none}
-  .quick-card.mobile-collapsed .quick-toggle{pointer-events:auto}
-  .quick-toggle{
-    display:inline-flex; align-items:center; justify-content:center; position:fixed;
-    right:12px; bottom:calc(182px + env(safe-area-inset-bottom)); width:54px; height:118px;
-    border-radius:18px; background:rgba(255,255,255,.97); border:1px solid var(--border);
-    box-shadow:var(--shadow); writing-mode:vertical-rl; text-orientation:mixed; font-size:15px; font-weight:700; z-index:1160;
+  .quick-card .action-btn{
+    min-width:0; height:44px; padding:0; border-radius:14px; font-size:0;
+    display:grid; place-items:center; background:var(--bg-solid); border:1px solid var(--border);
+    box-shadow:var(--shadow); color:var(--text);
   }
+  .quick-card .action-btn::before{font-size:16px; line-height:1}
+  #zoomAllBtn::before{content:'⤢'}
+  #toggleSidebarBtn::before{content:'☰'}
+  #locateBtn::before{content:'◎'}
+  #statsBtn::before{content:'◔'}
+  #pickRouteBtn::before{content:'➜'}
+  #clearRouteBtn::before{content:'✕'}
+  .quick-card .action-btn.warn{background:var(--bg-solid); color:#be123c}
+
+  .scale-center{
+    left:12px; right:12px; bottom:calc(48px + env(safe-area-inset-bottom));
+    transform:none; padding:0; font-size:11px; border-radius:16px; text-align:left;
+    display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1.45fr); overflow:hidden;
+  }
+  .scale-center::before,
+  .scale-center::after{
+    padding:10px 12px; display:flex; align-items:center; min-height:44px; box-sizing:border-box;
+  }
+  .scale-center::before{
+    content:'Shkalla aktuale\A' attr(data-scale);
+    white-space:pre; font-weight:700; color:#0f172a; border-right:1px solid var(--border);
+  }
+  .scale-center::after{
+    content:'Koordinatat KosovaRef\A' attr(data-coords);
+    white-space:pre; font-weight:700; color:#0f172a;
+  }
+  .scale-center span{display:none}
 
   .bottom-bar{
-    left:0; right:0; bottom:0; max-width:none; gap:0; align-items:stretch;
-    display:grid; grid-template-columns:1fr 1fr; background:rgba(255,255,255,.97); border-top:1px solid var(--border);
-    box-shadow:0 -12px 24px rgba(15,23,42,.12); padding:10px 12px calc(10px + env(safe-area-inset-bottom));
+    display:none;
   }
-  .bottom-bar .mini-card{
-    background:transparent; border:none; box-shadow:none; border-radius:0; padding:4px 6px; min-width:0;
-  }
-  .bottom-bar .mini-card strong{font-size:11px; margin-bottom:2px}
-  .bottom-bar .mini-card span,.bottom-bar .coord-stack span{font-size:10px; line-height:1.25; color:#475569; white-space:normal; word-break:break-word}
 
   .author-badge{
-    left:12px; right:12px; bottom:calc(64px + env(safe-area-inset-bottom)); font-size:9px; padding:0; text-align:center;
+    left:12px; right:12px; bottom:calc(8px + env(safe-area-inset-bottom));
+    font-size:9px; padding:0; max-width:none; text-align:center;
     background:transparent; border:none; box-shadow:none; color:#64748b;
   }
 }
-
 </style>
 </head>
 <body>
 <div class="map-shell sidebar-open" id="appShell">
   <div id="map"></div>
   <div class="app-title"><span>Objektet me interes publik në Komunën e Vushtrrisë</span></div>
-  <div class="mobile-top-ui" id="mobileTopUI">
-    <button class="mobile-searchbar" id="mobileSearchBar" type="button" aria-label="Kërko në hartë">
-      <span class="ms-left">🔍</span>
-      <span class="ms-text">Kërko objekt, institucion ose kategori</span>
-      <span class="ms-right">☰</span>
-    </button>
-    <div class="mobile-chips" id="mobileChips">
-      <button class="mobile-chip" data-mobile-tab="search">Kërko</button>
-      <button class="mobile-chip" data-mobile-tab="layers">Shtresat</button>
-      <button class="mobile-chip" data-mobile-tab="legend">Legjenda</button>
-      <button class="mobile-chip" data-mobile-tab="vgi">Shto</button>
-      <button class="mobile-chip" id="mobileLocateChip" type="button">Pozicioni im</button>
-    </div>
-  </div>
-
   <div class="author-badge">Created by Drenushë Bajraktari</div>
     <div class="right-toolbar">
     <button class="tool-btn active" id="btnSidebar" title="Shfaq/Fsheh panelin">☰</button>
@@ -233,7 +210,6 @@ body{overscroll-behavior:none;-webkit-tap-highlight-color:transparent}
   </div>
 
   <aside class="sidebar" id="sidebar">
-    <button class="mobile-sheet-handle" id="mobileSheetHandle" type="button" aria-label="Hap ose mbyll panelin"><span></span></button>
     <div class="sidebar-head">
       <h2>Paneli i aplikacionit</h2>
       <p>Zgjidh funksionin nga skedat më poshtë. Paraqitja është ristrukturuar për lexim më të pastër, në stil të ngjashëm me shikuesit hartografikë profesionalë.</p>
@@ -451,7 +427,10 @@ body{overscroll-behavior:none;-webkit-tap-highlight-color:transparent}
   }
   function updateCoordDisplay(lat, lng){
     var kr = kosovaRefFromLatLng(lat, lng);
-    document.getElementById('coordKosRef').textContent = 'X: ' + kr.x.toFixed(2) + ' | Y: ' + kr.y.toFixed(2);
+    var coordText = 'X: ' + kr.x.toFixed(2) + ' | Y: ' + kr.y.toFixed(2);
+    document.getElementById('coordKosRef').textContent = coordText;
+    var scaleEl = document.getElementById('scaleCenter');
+    if (scaleEl) scaleEl.setAttribute('data-coords', coordText);
   }
 
   function buildPopupContent(feature, fields, latlng){
@@ -725,7 +704,9 @@ body{overscroll-behavior:none;-webkit-tap-highlight-color:transparent}
     var el = document.getElementById('scaleCenter');
     if (!el) return;
     var scale = getRoundedScaleValue(getCurrentScaleDenominator());
-    el.innerHTML = 'Shkalla aktuale: <span>1:' + formatScaleNumber(scale) + '</span>';
+    var scaleText = '1:' + formatScaleNumber(scale);
+    el.innerHTML = 'Shkalla aktuale: <span>' + scaleText + '</span>';
+    el.setAttribute('data-scale', scaleText);
   }
   function updateMarkerVisibilityMessage(){
     if (map.getZoom() < markerMinZoom) updateStatus('Zmadho hartën për të shfaqur simbolet e objekteve');
@@ -1030,59 +1011,23 @@ body{overscroll-behavior:none;-webkit-tap-highlight-color:transparent}
     }
   });
 
+  if (window.innerWidth <= 680) {
+    document.getElementById('sidebar').classList.add('hidden');
+  }
+
   function isMobileView(){ return window.innerWidth <= 680; }
   function syncMobileLayout(){
     var quickCard = document.getElementById('quickCard');
-    var quickToggle = document.getElementById('quickToggleBtn');
-    var sidebar = document.getElementById('sidebar');
-    if (!quickCard || !quickToggle || !sidebar) return;
+    if (!quickCard) return;
     if (isMobileView()) {
-      if (!quickCard.dataset.mobileInit) {
-        quickCard.classList.add('mobile-collapsed');
-        sidebar.classList.add('hidden');
-        quickCard.dataset.mobileInit = '1';
-      }
-      quickToggle.style.display = 'inline-flex';
-      quickToggle.textContent = quickCard.classList.contains('mobile-collapsed') ? 'Vegla' : 'Mbyll';
+      quickCard.classList.remove('mobile-collapsed');
+      document.getElementById('sidebar').classList.add('hidden');
     } else {
       quickCard.classList.remove('mobile-collapsed');
-      quickToggle.style.display = 'none';
-      sidebar.classList.remove('hidden');
-      delete quickCard.dataset.mobileInit;
+      document.getElementById('sidebar').classList.remove('hidden');
     }
     syncLayoutState();
   }
-  document.getElementById('quickToggleBtn').addEventListener('click', function(){
-    var quickCard = document.getElementById('quickCard');
-    quickCard.classList.toggle('mobile-collapsed');
-    this.textContent = quickCard.classList.contains('mobile-collapsed') ? 'Vegla' : 'Mbyll';
-    if (isMobileView() && !quickCard.classList.contains('mobile-collapsed')) {
-      document.getElementById('sidebar').classList.add('hidden');
-    }
-    syncLayoutState();
-  });
-
-  document.getElementById('mobileSearchBar').addEventListener('click', function(){
-    showSidebar();
-    setActiveTab('search');
-    setTimeout(function(){ document.getElementById('featureSearch').focus(); }, 100);
-  });
-  document.querySelectorAll('[data-mobile-tab]').forEach(function(btn){
-    btn.addEventListener('click', function(){
-      showSidebar();
-      setActiveTab(btn.getAttribute('data-mobile-tab'));
-      if (btn.getAttribute('data-mobile-tab') === 'search') {
-        setTimeout(function(){ document.getElementById('featureSearch').focus(); }, 100);
-      }
-    });
-  });
-  document.getElementById('mobileLocateChip').addEventListener('click', function(){
-    document.getElementById('locateBtn').click();
-  });
-  document.getElementById('mobileSheetHandle').addEventListener('click', function(){
-    toggleSidebar();
-  });
-
   window.addEventListener('resize', syncMobileLayout);
 
   syncMobileLayout();
