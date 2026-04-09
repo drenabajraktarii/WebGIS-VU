@@ -398,7 +398,7 @@ body{overscroll-behavior:none;-webkit-tap-highlight-color:transparent}
   var isPickingVgiLocation = false;
   var isPickingRouteLocation = false;
   var selectedVgiLatLng = null;
-  var markerMaxVisibleScale = 25000;
+  var markerMinZoom = 14.4;
 
   function updateStatus(msg){ document.getElementById('statusText').textContent = msg; }
   function esc(v){ return v !== null && v !== undefined ? autolinker.link(String(v).replace(/'/g,'&#39;').toLocaleString()) : ''; }
@@ -514,7 +514,7 @@ body{overscroll-behavior:none;-webkit-tap-highlight-color:transparent}
   function updateMarkerSizes(){
     var size = getIconSize();
     var z = map.getZoom();
-    var showMarkers = shouldShowPointSymbols();
+    var showMarkers = z >= markerMinZoom;
     pointLayersMeta.forEach(function(meta){
       meta.layer.eachLayer(function(marker){
         if (marker.setIcon) marker.setIcon(divIconFromSvg(meta.svg, size));
@@ -772,22 +772,6 @@ body{overscroll-behavior:none;-webkit-tap-highlight-color:transparent}
   function formatScaleNumber(value){
     return Math.round(value).toLocaleString('sq-AL');
   }
-  function shouldShowPointSymbols(){
-    return getCurrentScaleDenominator() <= markerMaxVisibleScale;
-  }
-  function syncPointLayerVisibility(){
-    thematicLayers.forEach(function(entry){
-      if (!entry.sourceLayer) return;
-      var checkbox = document.querySelector('[data-layer-toggle="' + entry.key + '"]');
-      var wantsLayer = checkbox ? checkbox.checked : true;
-      var shouldShow = wantsLayer && shouldShowPointSymbols();
-      if (shouldShow) {
-        if (!map.hasLayer(entry.layer)) map.addLayer(entry.layer);
-      } else {
-        if (map.hasLayer(entry.layer)) map.removeLayer(entry.layer);
-      }
-    });
-  }
   function updateScaleReadout(){
     var el = document.getElementById('scaleCenter');
     var scale = getRoundedScaleValue(getCurrentScaleDenominator());
@@ -797,7 +781,7 @@ body{overscroll-behavior:none;-webkit-tap-highlight-color:transparent}
     if (mobileScale) mobileScale.textContent = scaleText;
   }
   function updateMarkerVisibilityMessage(){
-    if (!shouldShowPointSymbols()) updateStatus('Zmadho hartën për të shfaqur simbolet e objekteve');
+    if (map.getZoom() < markerMinZoom) updateStatus('Zmadho hartën për të shfaqur simbolet e objekteve');
   }
   function applyInitialView(){
     if (initialBounds) {
@@ -950,7 +934,7 @@ body{overscroll-behavior:none;-webkit-tap-highlight-color:transparent}
   function refreshVgiLayer(){
     vgiLayer.clearLayers();
     var stored = JSON.parse(localStorage.getItem('vushtrri_vgi') || '[]');
-    var showMarkers = shouldShowPointSymbols();
+    var showMarkers = map.getZoom() >= markerMinZoom;
     stored.forEach(function(item){
       var marker = L.marker([item.lat, item.lng], {icon:divIconFromSvg(svgVgi(), getIconSize()), opacity: showMarkers ? 1 : 0});
       marker.feature = {properties:{name:item.name, category:item.category, description:item.description}};
@@ -1013,11 +997,7 @@ body{overscroll-behavior:none;-webkit-tap-highlight-color:transparent}
     if (!key) return;
     var entry = thematicLayers.find(function(x){ return x.key === key; });
     if (!entry) return;
-    if (entry.sourceLayer) {
-      syncPointLayerVisibility();
-    } else {
-      if (e.target.checked) map.addLayer(entry.layer); else map.removeLayer(entry.layer);
-    }
+    if (e.target.checked) map.addLayer(entry.layer); else map.removeLayer(entry.layer);
     updateExtentStats();
     updateStatus((e.target.checked ? 'U aktivizua shtresa: ' : 'U çaktivizua shtresa: ') + entry.name);
   });
@@ -1084,8 +1064,8 @@ body{overscroll-behavior:none;-webkit-tap-highlight-color:transparent}
     });
   });
 
-  map.on('zoomend', function(){ syncPointLayerVisibility(); updateMarkerSizes(); refreshVgiLayer(); updateRoadStyles(); updateScaleReadout(); updateMarkerVisibilityMessage(); });
-  map.on('moveend layeradd layerremove', function(){ syncPointLayerVisibility(); updateExtentStats(); updateScaleReadout(); });
+  map.on('zoomend', function(){ updateMarkerSizes(); refreshVgiLayer(); updateRoadStyles(); updateScaleReadout(); updateMarkerVisibilityMessage(); });
+  map.on('moveend layeradd layerremove', function(){ updateExtentStats(); updateScaleReadout(); });
   map.on('mousemove', function(e){ updateCoordDisplay(e.latlng.lat, e.latlng.lng); });
   map.on('move', function(){ var c = map.getCenter(); updateCoordDisplay(c.lat, c.lng); });
   map.on('zoomend', function(){ var c = map.getCenter(); updateCoordDisplay(c.lat, c.lng); });
@@ -1134,7 +1114,6 @@ body{overscroll-behavior:none;-webkit-tap-highlight-color:transparent}
   refreshVgiLayer();
   rebuildSearchIndex();
   renderSearchResults('');
-  syncPointLayerVisibility();
   updateMarkerSizes();
   updateRoadStyles();
   updateExtentStats();
